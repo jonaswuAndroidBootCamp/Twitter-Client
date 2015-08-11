@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:paddingTop="6dp"
+    android:paddingBottom="6dp">
+
+    <TextView
+        android:id="@+id/retweeted_status"
+        android:layout_toRightOf="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:ellipsize="end"
+        android:maxEms="5"
+        android:maxLines="1"
+        android:text="\@retweeted_status"
+        android:textSize="18sp"
+        android:layout_marginTop="5dp"
+        android:textColor="#626262"
+        android:layout_marginLeft="10dp"
+        android:layout_marginBottom="5dp"
+        android:visibility="gone" />
+
+
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="5dp"
+        android:layout_below="@id/retweeted_status"
+        android:src="@drawable/user_profile_picture"
+        android:background="@drawable/image_round_corner"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_alignTop="@+id/profile_image"
+        android:layout_toRightOf="@+id/profile_image"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="chrisconnolly"
+        android:ellipsize="end"
+        android:maxEms="5"
+        android:maxLines="1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="#191919"
+        android:layout_marginLeft="10dp" />
+
+    <TextView
+        android:id="@+id/screenname"
+        android:layout_toRightOf="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_alignBottom="@+id/name"
+        android:ellipsize="end"
+        android:maxEms="5"
+        android:maxLines="1"
+        android:text="\@test"
+        android:textSize="15sp"
+        android:layout_marginTop="5dp"
+        android:textColor="#626262" />
+
+    <com.codepath.apps.restclienttemplate.views.LinkifiedTextView
+        android:id="@+id/text"
+        android:layout_below="@+id/name"
+        android:layout_alignLeft="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:text="comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!comment!!"
+        android:autoLink="all"
+        android:linksClickable="true"
+        android:textSize="15sp"
+        android:textColor="#000000" />
+
+    <TextView
+        android:id="@+id/time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/screenname"
+        android:layout_alignParentRight="true"
+        android:paddingRight="10dp"
+        android:text="2m"
+        android:textSize="15sp"
+        android:textColor="#b4b8bb"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:orientation="horizontal"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp">
+
+        <ImageView
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:src="@drawable/retweet3"
+            android:layout_marginLeft="10dp"
+            android:gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/retweet_count"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:textColor="#697882"
+            android:textSize="15sp"
+            android:text="12345" />
+
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginTop="3dp"
+            android:src="@drawable/favorite"
+            android:layout_marginLeft="20dp" />
+
+        <TextView
+            android:id="@+id/favorite_count"
+            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:gravity="center_vertical"
+            android:textColor="#697882"
+            android:textSize="15sp"
+            android:text="12345" />
+
+
+    </LinearLayout>
+
+
+</RelativeLayout>
+
+<!-- From: file:/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master%202/app/src/main/res/layout/post.xml -->

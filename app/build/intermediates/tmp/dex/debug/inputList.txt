@@ -1,0 +1,17 @@
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/classes/debug
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/support-annotations-21.0.3-844607960744e1a4b231a9aaa7aa051729deb3e8.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/codepath-utils-4db0ac7b006a2c09524c54c4114bfd221b8ef44e.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/robotium-core-1.8.0-beta-2-4f436e05dd4b86631e8e05a6e21493a19cbff426.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/codepath-oauth-0.4.1-5db07c5b2e1e33b0424089a5c5299f77c97e9aff.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/eventbus-2.4.0-55247a98abacac115dcaae55a511cb4ae660251b.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/activeandroid-3.1.0-SNAPSHOT-a9fb63d77b6b3999570866444f6dd317ebdbd468.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/scribe-codepath-0.0.3-02c2026ce5d1818dff84f1215f91228216b0bcfb.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/greendao-1.3.7-b90bf49daba095200e44c4b44825a00dd96fbf6e.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/picasso-2.4.0-0ccc550e45b712c8acd8548baf16a32853652bff.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/android-async-http-1.4.8-f15044ca918594da8aaca34bc7e17816ec2acda4.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/robotium-solo-5.4.1-ac96cab9f04b77cb2b8070148f3a76b62f0b410f.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/internal_impl-21.0.3-cc755a5cbb45d073580c3f149322935481ae0917.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/gson-2.3.1-773de8877ff9f2f27c3442895d0da0c94dbe62a8.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/commons-lang-20030203.000129-e4268c56802a9479043f0cbc069d2b45e3b2cfe8.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/classes-a105e2df731484757647b5d725ae564e376d1454.jar
+/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master 2/app/build/intermediates/pre-dexed/debug/classes-1241bdc64bff8c384b76d28ef9b1501b56ac0999.jar
