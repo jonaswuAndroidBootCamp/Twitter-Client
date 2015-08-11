@@ -44,7 +44,7 @@
         android:ellipsize="end"
         android:maxEms="5"
         android:maxLines="1"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:textStyle="bold"
         android:textColor="#191919"
         android:layout_marginLeft="10dp" />
