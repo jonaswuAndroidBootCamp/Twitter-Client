@@ -175,6 +175,7 @@
     <string name="app_name">  Twitter Client</string>
     <string name="login_label">Log in</string>
     <string name="maxlenghtofatweet">140</string>
+    <string name="networkerror">please check your network status</string>
     <string name="what_are_you_feeling">what are you feeling ?</string>
     <!-- From: file:/Users/jonaswu/AndroidStudioProject/android-rest-client-template-master%202/app/src/main/res/values/themes_apptheme.xml -->
     <eat-comment/>

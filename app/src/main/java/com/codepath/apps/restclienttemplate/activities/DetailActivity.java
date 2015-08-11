@@ -4,14 +4,14 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.codepath.apps.restclienttemplate.R;
-import com.codepath.apps.restclienttemplate.adapters.CustomizedAdapter;
+import com.codepath.apps.restclienttemplate.RestApplication;
+import com.codepath.apps.restclienttemplate.TwitterRestClient;
 import com.codepath.apps.restclienttemplate.adapters.ReplyAdapter;
 import com.codepath.apps.restclienttemplate.dao.CurrentUser;
 import com.codepath.apps.restclienttemplate.dao.CurrentUserDao;
@@ -24,10 +24,17 @@ import com.codepath.apps.restclienttemplate.dao.TwitterDao;
 import com.codepath.apps.restclienttemplate.dao.User;
 import com.codepath.apps.restclienttemplate.dao.UserDao;
 import com.codepath.apps.restclienttemplate.fragments.TweetFragment;
-import com.codepath.apps.restclienttemplate.helper.RoundedTransformation;
-import com.codepath.apps.restclienttemplate.helper.SaveDataToDB;
-import com.codepath.apps.restclienttemplate.helper.Utils;
+import com.codepath.apps.restclienttemplate.lib.MyJsonHttpResponseHandler;
+import com.codepath.apps.restclienttemplate.lib.RoundedTransformation;
+import com.codepath.apps.restclienttemplate.lib.SaveDataToDB;
+import com.codepath.apps.restclienttemplate.lib.Utils;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.squareup.picasso.Picasso;
+
+import org.apache.http.Header;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.util.List;
 
@@ -133,12 +140,45 @@ public class DetailActivity extends BaseActivity {
     }
 
     private void showReplyDialog(Long replyTo) {
-        FragmentManager fm = getSupportFragmentManager();
-        Query query = currentUserDao.queryBuilder().where(UserDao.Properties.Id.eq(Utils.getCurrentUserId())).build();
-        CurrentUser user = (CurrentUser) query.list().get(0);
-        TweetFragment alertDialog = TweetFragment.newInstanceAsReply(user, this.getEventBus(), replyTo);
-        alertDialog.show(fm, "filter");
+        if (Utils.getCurrentUserId() != null) {
+            FragmentManager fm = getSupportFragmentManager();
+            Query query = currentUserDao.queryBuilder().where(UserDao.Properties.Id.eq(Utils.getCurrentUserId())).build();
+            List<CurrentUser> currentUsers = query.list();
+            if (currentUsers.size() > 0) {
+                CurrentUser user = (CurrentUser) query.list().get(0);
+                TweetFragment alertDialog = TweetFragment.newInstanceAsReply(user, this.getEventBus(), replyTo);
+                alertDialog.show(fm, "filter");
+            }
+        } else {
+            getUserCredential();
+        }
     }
+
+
+    private void getUserCredential() {
+        TwitterRestClient client = RestApplication.getRestClient();
+        client.getcredentials(
+                new MyJsonHttpResponseHandler(this) {
+                    @Override
+                    public void successCallBack(int statusCode, Header[] headers, Object data) {
+                        try {
+                            JSONObject userJSON = (JSONObject) data;
+                            Utils.setCurrentUserId(userJSON.getLong("id"));
+                            Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+                            CurrentUser currentUser = gson.fromJson(userJSON.toString(), CurrentUser.class);
+                            currentUserDao.insert(currentUser);
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                    @Override
+                    public void errorCallBack() {
+                    }
+                }
+        );
+    }
+
 
     public void onEventMainThread(SaveDataToDB saveDataToDB) {
 

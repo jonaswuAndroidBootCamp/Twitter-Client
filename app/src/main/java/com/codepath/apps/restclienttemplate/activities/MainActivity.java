@@ -27,12 +27,12 @@ import com.codepath.apps.restclienttemplate.dao.TwitterDao;
 import com.codepath.apps.restclienttemplate.dao.User;
 import com.codepath.apps.restclienttemplate.dao.UserDao;
 import com.codepath.apps.restclienttemplate.fragments.TweetFragment;
-import com.codepath.apps.restclienttemplate.helper.EndlessScrollListener;
-import com.codepath.apps.restclienttemplate.helper.SaveDataToDB;
-import com.codepath.apps.restclienttemplate.helper.Utils;
+import com.codepath.apps.restclienttemplate.lib.EndlessScrollListener;
+import com.codepath.apps.restclienttemplate.lib.MyJsonHttpResponseHandler;
+import com.codepath.apps.restclienttemplate.lib.SaveDataToDB;
+import com.codepath.apps.restclienttemplate.lib.Utils;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.loopj.android.http.JsonHttpResponseHandler;
 
 import org.apache.http.Header;
 import org.json.JSONArray;
@@ -66,6 +66,7 @@ public class MainActivity extends BaseActivity {
         setContentView(R.layout.activity_main);
         initDb();
         initView();
+        initData();
         getUserCredential();
         updateListView(null);
     }
@@ -73,10 +74,12 @@ public class MainActivity extends BaseActivity {
     private void getUserCredential() {
         TwitterRestClient client = RestApplication.getRestClient();
         client.getcredentials(
-                new JsonHttpResponseHandler() {
+                new MyJsonHttpResponseHandler(this) {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONObject userJSON) {
+                    public void successCallBack(int statusCode, Header[] headers, Object data) {
+                        swipeContainer.setRefreshing(false);
                         try {
+                            JSONObject userJSON = (JSONObject) data;
                             Utils.setCurrentUserId(userJSON.getLong("id"));
                             Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
                             CurrentUser currentUser = gson.fromJson(userJSON.toString(), CurrentUser.class);
@@ -87,15 +90,8 @@ public class MainActivity extends BaseActivity {
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONObject data) {
-                        Log.e("onFailure JSONObject", "JSONObject");
-                        processDataToDB(true, null, null);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONArray data) {
-                        Log.e("onFailure JSONArray", "JSONArray");
-                        processDataToDB(true, null, null);
+                    public void errorCallBack() {
+                        swipeContainer.setRefreshing(false);
                     }
                 }
         );
@@ -166,22 +162,16 @@ public class MainActivity extends BaseActivity {
         if (fetchOnRefresh) {
             TwitterRestClient client = RestApplication.getRestClient();
             client.getHomeTimeline(null,
-                    new JsonHttpResponseHandler() {
+                    new MyJsonHttpResponseHandler(this) {
                         @Override
-                        public void onSuccess(int statusCode, Header[] headers, JSONArray data) {
-                            processDataToDB(true, data, null);
+                        public void successCallBack(int statusCode, Header[] headers, Object data) {
+                            swipeContainer.setRefreshing(false);
+                            processDataToDB(true, (JSONArray) data, null);
                         }
 
                         @Override
-                        public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONObject data) {
-                            Log.e("onFailure JSONObject", "JSONObject");
-                            processDataToDB(true, null, null);
-                        }
-
-                        @Override
-                        public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONArray data) {
-                            Log.e("onFailure JSONArray", "JSONArray");
-                            processDataToDB(true, null, null);
+                        public void errorCallBack() {
+                            swipeContainer.setRefreshing(false);
                         }
                     }
             );
@@ -194,20 +184,16 @@ public class MainActivity extends BaseActivity {
     private void fetchData(final Long maxId) {
         TwitterRestClient client = RestApplication.getRestClient();
         client.getHomeTimeline(maxId,
-                new JsonHttpResponseHandler() {
+                new MyJsonHttpResponseHandler(this) {
                     @Override
-                    public void onSuccess(int statusCode, Header[] headers, JSONArray data) {
-                        processDataToDB(false, data, maxId);
+                    public void successCallBack(int statusCode, Header[] headers, Object data) {
+                        swipeContainer.setRefreshing(false);
+                        processDataToDB(false, (JSONArray) data, maxId);
                     }
 
                     @Override
-                    public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONObject data) {
-                        processDataToDB(false, null, maxId);
-                    }
-
-                    @Override
-                    public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONArray data) {
-                        processDataToDB(false, null, maxId);
+                    public void errorCallBack() {
+                        swipeContainer.setRefreshing(false);
                     }
                 }
         );
@@ -219,7 +205,6 @@ public class MainActivity extends BaseActivity {
     }
 
     private void processDataToDB(boolean clean, JSONArray data, Long lessThen) {
-        swipeContainer.setRefreshing(false);
         if (data != null) {
             if (clean) {
                 adapter.deleteAll();
@@ -325,11 +310,17 @@ public class MainActivity extends BaseActivity {
 
 
     private void showPostDialog() {
-        FragmentManager fm = getSupportFragmentManager();
-        Query query = currentUserDao.queryBuilder().where(UserDao.Properties.Id.eq(Utils.getCurrentUserId())).build();
-        CurrentUser user = (CurrentUser) query.list().get(0);
-        TweetFragment alertDialog = TweetFragment.newInstanceAsPostNewTweet(user, this.getEventBus());
-        alertDialog.show(fm, "filter");
+        if (Utils.getCurrentUserId() != null) {
+            FragmentManager fm = getSupportFragmentManager();
+            Query query = currentUserDao.queryBuilder().where(UserDao.Properties.Id.eq(Utils.getCurrentUserId())).build();
+            List<CurrentUser> currentUsers = query.list();
+            if (currentUsers.size() > 0) {
+                CurrentUser user = currentUsers.get(0);
+                TweetFragment alertDialog = TweetFragment.newInstanceAsPostNewTweet(user, this.getEventBus());
+                alertDialog.show(fm, "filter");
+            }
+        } else {
+            getUserCredential();
+        }
     }
-
 }

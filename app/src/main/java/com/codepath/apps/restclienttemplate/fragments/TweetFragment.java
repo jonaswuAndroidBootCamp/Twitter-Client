@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,8 +16,9 @@ import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.RestApplication;
 import com.codepath.apps.restclienttemplate.TwitterRestClient;
 import com.codepath.apps.restclienttemplate.dao.CurrentUser;
-import com.codepath.apps.restclienttemplate.helper.RoundedTransformation;
-import com.codepath.apps.restclienttemplate.helper.SaveDataToDB;
+import com.codepath.apps.restclienttemplate.lib.MyJsonHttpResponseHandler;
+import com.codepath.apps.restclienttemplate.lib.RoundedTransformation;
+import com.codepath.apps.restclienttemplate.lib.SaveDataToDB;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.squareup.picasso.Picasso;
 
@@ -92,49 +92,30 @@ public class TweetFragment extends DialogFragment implements TextView.OnKeyListe
                                 TwitterRestClient client = RestApplication.getRestClient();
                                 if (replyTo == null) {
                                     client.postTweet(body.getText().toString(),
-                                            new JsonHttpResponseHandler() {
+                                            new MyJsonHttpResponseHandler(getActivity()) {
                                                 @Override
-                                                public void onSuccess(int statusCode, Header[] headers, JSONArray data) {
+                                                public void successCallBack(int statusCode, Header[] headers, Object data) {
                                                     bus.post(new SaveDataToDB(true, null, null));
                                                 }
 
                                                 @Override
-                                                public void onSuccess(int statusCode, Header[] headers, JSONObject data) {
-                                                    bus.post(new SaveDataToDB(true, null, null));
-                                                }
+                                                public void errorCallBack() {
 
-                                                @Override
-                                                public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONObject data) {
-                                                    bus.post(new SaveDataToDB(false, null, null));
-                                                }
-
-                                                @Override
-                                                public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONArray data) {
-                                                    bus.post(new SaveDataToDB(false, null, null));
                                                 }
                                             }
                                     );
                                 } else {
                                     client.postReply(body.getText().toString(), getReplyTo(),
-                                            new JsonHttpResponseHandler() {
+                                            new MyJsonHttpResponseHandler(getActivity()) {
+
                                                 @Override
-                                                public void onSuccess(int statusCode, Header[] headers, JSONArray data) {
+                                                public void successCallBack(int statusCode, Header[] headers, Object data) {
                                                     bus.post(new SaveDataToDB(true, null, null));
                                                 }
 
                                                 @Override
-                                                public void onSuccess(int statusCode, Header[] headers, JSONObject data) {
-                                                    bus.post(new SaveDataToDB(true, null, null));
-                                                }
+                                                public void errorCallBack() {
 
-                                                @Override
-                                                public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONObject data) {
-                                                    bus.post(new SaveDataToDB(false, null, null));
-                                                }
-
-                                                @Override
-                                                public void onFailure(int statusCode, Header[] headers, java.lang.Throwable throwable, JSONArray data) {
-                                                    bus.post(new SaveDataToDB(false, null, null));
                                                 }
                                             }
                                     );

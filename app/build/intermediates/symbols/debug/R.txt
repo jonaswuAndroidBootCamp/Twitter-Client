@@ -560,7 +560,8 @@ int string abc_shareactionprovider_share_with_application 0x7f0a000e
 int string app_name 0x7f0a000f
 int string login_label 0x7f0a0010
 int string maxlenghtofatweet 0x7f0a0011
-int string what_are_you_feeling 0x7f0a0012
+int string networkerror 0x7f0a0012
+int string what_are_you_feeling 0x7f0a0013
 int style AppTheme 0x7f0b0000
 int style Base_TextAppearance_AppCompat 0x7f0b0001
 int style Base_TextAppearance_AppCompat_Body1 0x7f0b0002

@@ -11,8 +11,8 @@ import android.widget.TextView;
 import com.codepath.apps.restclienttemplate.R;
 import com.codepath.apps.restclienttemplate.dao.Twitter;
 import com.codepath.apps.restclienttemplate.dao.User;
-import com.codepath.apps.restclienttemplate.helper.RoundedTransformation;
-import com.codepath.apps.restclienttemplate.helper.Utils;
+import com.codepath.apps.restclienttemplate.lib.RoundedTransformation;
+import com.codepath.apps.restclienttemplate.lib.Utils;
 import com.squareup.picasso.Picasso;
 
 import java.util.Date;

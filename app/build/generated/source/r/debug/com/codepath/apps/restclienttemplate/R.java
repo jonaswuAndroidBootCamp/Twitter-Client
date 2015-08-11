@@ -1539,7 +1539,8 @@ containing a value of this type.
         public static final int app_name=0x7f0a000f;
         public static final int login_label=0x7f0a0010;
         public static final int maxlenghtofatweet=0x7f0a0011;
-        public static final int what_are_you_feeling=0x7f0a0012;
+        public static final int networkerror=0x7f0a0012;
+        public static final int what_are_you_feeling=0x7f0a0013;
     }
     public static final class style {
         public static final int AppTheme=0x7f0b0000;
