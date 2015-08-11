@@ -223,10 +223,8 @@ public class MainActivity extends BaseActivity {
                     // user already contain id after insert to db
                     twitterPost.setUser(user);
 
-
                     try {
                         if (post.getLong("in_reply_to_status_id") != 0) {
-                            Log.e("in_reply_to_status_id", post.getString("in_reply_to_status_id"));
                             twitterPost.setIn_reply_to_user_id(post.getLong("in_reply_to_status_id"));
                         }
                     } catch (Exception e) {

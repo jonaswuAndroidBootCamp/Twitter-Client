@@ -51,6 +51,12 @@ Here's a walkthrough of implemented user stories:
 
 <img src='demo.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
 
+Append autolink demo:
+
+<img src='week3clickablelink.gif' title='Video Walkthrough' width='' alt='Video Walkthrough' />
+
+> Note: For autolink, TextView should also call `setMovementMethod(null)` programmatically otherwise `OnItemClickLister` still not being called.
+
 GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 ## Notes
