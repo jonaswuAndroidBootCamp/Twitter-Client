@@ -40,7 +40,8 @@ The following **additional** features are implemented:
 ```java
       // get API response data as JSONObject, eg: jsonObject
       Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
-      Twitter tweet = gson.fromJson(jsonObject.toString(), Tweet.class);
+      Tweet tweet = gson.fromJson(jsonObject.toString(), Tweet.class);
+      // do more thing ...
 ```
 * [x] implement `MyJsonHttpResponseHandler` which pop out alert if no internet connection, then trigger customized callback functions `successCallBack` or `errorCallBack` respectively.
 
